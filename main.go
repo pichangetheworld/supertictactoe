@@ -7,4 +7,10 @@ import (
 func main() {
 	board := boardutil.NewBoard()
 	board.PrintBoard()
+
+	board.Play("NW", 'O')
+	board.PrintBoard()
+
+	board.Play("E", 'X')
+	board.PrintBoard()
 }

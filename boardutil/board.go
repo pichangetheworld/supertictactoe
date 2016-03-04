@@ -38,6 +38,7 @@ func (board Board) PrintBoard() {
 	fmt.Printf(" %s | %s | %s \n", string(board.W), string(board.C), string(board.E))
 	fmt.Println("---+---+---")
 	fmt.Printf(" %s | %s | %s \n", string(board.SW), string(board.S), string(board.SE))
+	fmt.Println()
 }
 
 // Plays a move by [player] at [position]
@@ -45,12 +46,18 @@ func (board Board) PrintBoard() {
 // e.g. board.Play("N", "X")
 //      board.Play("SW", "O")
 //      board.Play("SW", "X") -> false
-func (board Board) Play(position string, player byte) bool {
+
+// point to *Board (not Board) so we actually change its underlying value
+func (board *Board) Play(position string, player byte) bool {
 	// TODO: make position into an enum
 	switch position {
-	case "N":
+	case "NW":
 		// TODO: check if the position is already taken
+		board.NW = player
+	case "N":
 		board.N = player
+	case "E":
+		board.E = player
 	}
 	return true
 }
