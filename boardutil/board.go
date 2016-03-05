@@ -5,39 +5,33 @@ import (
 	"fmt"
 )
 
+// Function to hold the board state
+// ' ' (space) -- indicates an empty square
+// 'X' (capital x) -- indicates a square occupied by player1
+// 'O' (capital o) -- indicates a square occupied by player2
 type Board struct {
 	// Each board is a 3x3 board
-	NW byte
-	N  byte
-	NE byte
-	W  byte
-	C  byte
-	E  byte
-	SW byte
-	S  byte
-	SE byte
+	state [int(NUM_SQUARES)]byte
 }
 
+// Function to create a new, empty 3x3 board
 func NewBoard() Board {
 	var board Board
-	board.NW = byte(' ')
-	board.N = byte(' ')
-	board.NE = byte(' ')
-	board.W = byte(' ')
-	board.C = byte(' ')
-	board.E = byte(' ')
-	board.SW = byte(' ')
-	board.S = byte(' ')
-	board.SE = byte(' ')
+	for i := 0; i < int(NUM_SQUARES); i++ {
+		board.state[i] = byte(' ')
+	}
 	return board
 }
 
-func (board Board) PrintBoard() {
-	fmt.Printf(" %s | %s | %s \n", string(board.NW), string(board.N), string(board.NE))
+// Function to print out the board in ASCII
+// Use a method pointer (*Board) instead of (Board) so we can just pass the pointer around
+// This is faster than creating a copy every time
+func (board *Board) PrintBoard() {
+	fmt.Printf(" %s | %s | %s \n", string(board.state[NW]), string(board.state[N]), string(board.state[NE]))
 	fmt.Println("---+---+---")
-	fmt.Printf(" %s | %s | %s \n", string(board.W), string(board.C), string(board.E))
+	fmt.Printf(" %s | %s | %s \n", string(board.state[W]), string(board.state[C]), string(board.state[E]))
 	fmt.Println("---+---+---")
-	fmt.Printf(" %s | %s | %s \n", string(board.SW), string(board.S), string(board.SE))
+	fmt.Printf(" %s | %s | %s \n", string(board.state[SW]), string(board.state[S]), string(board.state[SE]))
 	fmt.Println()
 }
 
@@ -48,16 +42,12 @@ func (board Board) PrintBoard() {
 //      board.Play("SW", "X") -> false
 
 // point to *Board (not Board) so we actually change its underlying value
-func (board *Board) Play(position string, player byte) bool {
-	// TODO: make position into an enum
-	switch position {
-	case "NW":
-		// TODO: check if the position is already taken
-		board.NW = player
-	case "N":
-		board.N = player
-	case "E":
-		board.E = player
+func (board *Board) Play(pos string, player byte) bool {
+	// TODO: check if the position is already taken
+	if board.state[Position[pos]] != ' ' {
+		fmt.Println("Position", pos, "was already taken")
+		return false
 	}
+	board.state[Position[pos]] = player
 	return true
 }

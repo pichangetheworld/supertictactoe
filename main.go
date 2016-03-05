@@ -13,4 +13,6 @@ func main() {
 
 	board.Play("E", 'X')
 	board.PrintBoard()
+	board.Play("E", 'O')
+	board.PrintBoard()
 }
