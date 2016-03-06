@@ -32,7 +32,10 @@ func Show() {
 	fmt.Println(curplayer, "to play")
 }
 
-func Play(pos int) {
+// Play
+// Plays a move at the given position
+// Returns true if the game is over, false otherwise
+func Play(pos int) bool {
 	var position string
 	switch pos {
 	case 1:
@@ -62,7 +65,13 @@ func Play(pos int) {
 	}
 
 	if board.Play(position, player) {
-		curplayer = (curplayer + 1) % 2
+		Show()
+		if winner := board.Evaluate(); winner != ' ' {
+			fmt.Println("Player", string(winner), "wins!")
+			return true
+		} else {
+			curplayer = (curplayer + 1) % 2
+		}
 	}
-	Show()
+	return false
 }

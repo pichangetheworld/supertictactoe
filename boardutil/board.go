@@ -33,6 +33,7 @@ func (board *Board) PrintBoard() {
 	fmt.Println()
 }
 
+// Play
 // Plays a move by [player] at [position]
 // Returns: whether that is a legal move or not
 // e.g. board.Play("N", "X")
@@ -48,4 +49,36 @@ func (board *Board) Play(pos string, player byte) bool {
 	}
 	board.state[Position[pos]] = player
 	return true
+}
+
+// Evaluate
+// Determines if the game has been won
+// Returns the character (e.g. 'O') if the player has won, or nil otherwise
+func (board *Board) Evaluate() byte {
+	connections := [][]string{
+		// horizontal
+		{"NW", "N", "NE"},
+		{"W", "C", "E"},
+		{"SW", "S", "SE"},
+
+		// vertical
+		{"NW", "W", "SW"},
+		{"N", "C", "S"},
+		{"NE", "E", "SE"},
+
+		// diagonal
+		{"NW", "C", "SE"},
+		{"NE", "C", "SW"},
+	}
+
+	for _, conn := range connections {
+		//fmt.Println(conn)
+		if p := board.state[Position[conn[0]]]; p != ' ' &&
+			board.state[Position[conn[1]]] == p &&
+			board.state[Position[conn[2]]] == p {
+			return p
+		}
+	}
+
+	return ' '
 }

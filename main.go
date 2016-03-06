@@ -18,7 +18,9 @@ func main() {
 		line := scanner.Text()
 		if v, err := strconv.Atoi(line); err == nil {
 			if v > 0 && v <= 9 {
-				gamemanager.Play(v)
+				if gamemanager.Play(v) {
+					break
+				}
 			}
 		} else {
 			fmt.Print("Please enter a valid play")
