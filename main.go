@@ -1,18 +1,20 @@
 package main
 
 import (
-	"github.com/pichangetheworld/supertictactoe/boardutil"
+	"bufio"
+	"fmt"
+	"github.com/pichangetheworld/supertictactoe/gamemanager"
+	"os"
 )
 
 func main() {
-	board := boardutil.NewBoard()
-	board.PrintBoard()
+	gamemanager.NewGame()
 
-	board.Play("NW", 'O')
-	board.PrintBoard()
-
-	board.Play("E", 'X')
-	board.PrintBoard()
-	board.Play("E", 'O')
-	board.PrintBoard()
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter text (Ctrl+D to exit): ")
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+		fmt.Print("Enter text (Ctrl+D to exit): ")
+	}
+	fmt.Println()
 }

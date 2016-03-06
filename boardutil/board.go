@@ -14,13 +14,11 @@ type Board struct {
 	state [int(NUM_SQUARES)]byte
 }
 
-// Function to create a new, empty 3x3 board
-func NewBoard() Board {
-	var board Board
+// Function to clear the board to a new, empty 3x3 board
+func (board *Board) Reset() {
 	for i := 0; i < int(NUM_SQUARES); i++ {
 		board.state[i] = byte(' ')
 	}
-	return board
 }
 
 // Function to print out the board in ASCII
