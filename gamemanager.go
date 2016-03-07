@@ -34,9 +34,35 @@ func Show() {
 // Play
 // Plays a move at the given position
 // Returns true if the game is over, false otherwise
-func Play(pos int) bool {
+func Play(pos position) bool {
+	var player byte
+	if curplayer == X {
+		player = 'X'
+	} else {
+		player = 'O'
+	}
+
+	if board.Play(pos, player) {
+		Show()
+		if winner := board.Evaluate(); winner != ' ' {
+			fmt.Println("Player", string(winner), "wins!")
+			return true
+		} else {
+			curplayer = (curplayer + 1) % 2
+		}
+	}
+	return false
+}
+
+// getPosFromInt
+// Takes in an integer from 1-9
+// Returns the equivalent position (think of a phone dial)
+// Examples:
+//	1 -> NW
+//  6 -> E
+func getPosFromInt(i int) position {
 	var p position
-	switch pos {
+	switch i {
 	case 1:
 		p = NW
 	case 2:
@@ -56,21 +82,5 @@ func Play(pos int) bool {
 	case 9:
 		p = SE
 	}
-	var player byte
-	if curplayer == X {
-		player = 'X'
-	} else {
-		player = 'O'
-	}
-
-	if board.Play(p, player) {
-		Show()
-		if winner := board.Evaluate(); winner != ' ' {
-			fmt.Println("Player", string(winner), "wins!")
-			return true
-		} else {
-			curplayer = (curplayer + 1) % 2
-		}
-	}
-	return false
+	return p
 }
