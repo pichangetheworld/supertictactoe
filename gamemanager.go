@@ -35,26 +35,26 @@ func Show() {
 // Plays a move at the given position
 // Returns true if the game is over, false otherwise
 func Play(pos int) bool {
-	var position string
+	var p position
 	switch pos {
 	case 1:
-		position = "NW"
+		p = NW
 	case 2:
-		position = "N"
+		p = N
 	case 3:
-		position = "NE"
+		p = NE
 	case 4:
-		position = "W"
+		p = W
 	case 5:
-		position = "C"
+		p = C
 	case 6:
-		position = "E"
+		p = E
 	case 7:
-		position = "SW"
+		p = SW
 	case 8:
-		position = "S"
+		p = S
 	case 9:
-		position = "SE"
+		p = SE
 	}
 	var player byte
 	if curplayer == X {
@@ -63,7 +63,7 @@ func Play(pos int) bool {
 		player = 'O'
 	}
 
-	if board.Play(position, player) {
+	if board.Play(p, player) {
 		Show()
 		if winner := board.Evaluate(); winner != ' ' {
 			fmt.Println("Player", string(winner), "wins!")

@@ -52,30 +52,30 @@ func (board *Board) Play(pos string, player byte) bool {
 }
 
 // Evaluate
-// Determines if the game has been won
+// Determines if this specific board has been won
 // Returns the character (e.g. 'O') if the player has won, or nil otherwise
 func (board *Board) Evaluate() byte {
-	connections := [][]string{
+	connections := [][]position{
 		// horizontal
-		{"NW", "N", "NE"},
-		{"W", "C", "E"},
-		{"SW", "S", "SE"},
+		{NW, N, NE},
+		{W, C, E},
+		{SW, S, SE},
 
 		// vertical
-		{"NW", "W", "SW"},
-		{"N", "C", "S"},
-		{"NE", "E", "SE"},
+		{NW, W, SW},
+		{N, C, S},
+		{NE, E, SE},
 
 		// diagonal
-		{"NW", "C", "SE"},
-		{"NE", "C", "SW"},
+		{NW, C, SE},
+		{NE, C, SW},
 	}
 
 	for _, conn := range connections {
 		//fmt.Println(conn)
-		if p := board.state[Position[conn[0]]]; p != ' ' &&
-			board.state[Position[conn[1]]] == p &&
-			board.state[Position[conn[2]]] == p {
+		if p := board.state[conn[0]]; p != ' ' &&
+			board.state[conn[1]] == p &&
+			board.state[conn[2]] == p {
 			return p
 		}
 	}
