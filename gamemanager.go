@@ -4,11 +4,10 @@
  * - passing control to the active player, and
  * - determining when a player has won
  */
-package gamemanager
+package main
 
 import (
 	"fmt"
-	"github.com/pichangetheworld/supertictactoe/boardutil"
 )
 
 // current player
@@ -19,7 +18,7 @@ const (
 
 var curplayer int
 
-var board boardutil.Board
+var board Board
 
 func NewGame() {
 	board.Reset()

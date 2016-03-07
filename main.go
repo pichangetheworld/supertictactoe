@@ -3,14 +3,13 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/pichangetheworld/supertictactoe/gamemanager"
 	"os"
 	"strconv"
 )
 
 func main() {
-	gamemanager.NewGame()
-	gamemanager.Show()
+	NewGame()
+	Show()
 
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter your play (Ctrl+D to exit): ")
@@ -18,7 +17,7 @@ func main() {
 		line := scanner.Text()
 		if v, err := strconv.Atoi(line); err == nil {
 			if v > 0 && v <= 9 {
-				if gamemanager.Play(v) {
+				if Play(v) {
 					break
 				}
 			}

@@ -1,6 +1,6 @@
 // Package boardutil contains utility function for working with a single Board
 // position.go contains helper functions using the position enum (const in Golang)
-package boardutil
+package main
 
 type position int
 

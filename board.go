@@ -1,5 +1,5 @@
 // Package boardutil contains utility function for working with a single Board
-package boardutil
+package main
 
 import (
 	"fmt"
