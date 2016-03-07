@@ -15,7 +15,7 @@ const (
 	SW
 	S
 	SE
-	NUM_SQUARES // = 9
+	NumSquares // = 9
 )
 
 // A map from strings to the corresponding position

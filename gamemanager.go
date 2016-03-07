@@ -18,7 +18,7 @@ const (
 
 var curplayer int
 
-var board Board
+var board Superboard
 
 func NewGame() {
 	board.Reset()
@@ -27,7 +27,7 @@ func NewGame() {
 }
 
 func Show() {
-	board.PrintBoard()
+	board.Print()
 	fmt.Println(curplayer, "to play")
 }
 

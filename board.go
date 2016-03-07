@@ -11,12 +11,12 @@ import (
 // 'O' (capital o) -- indicates a square occupied by player2
 type Board struct {
 	// Each board is a 3x3 board
-	state [int(NUM_SQUARES)]byte
+	state [int(NumSquares)]byte
 }
 
 // Function to clear the board to a new, empty 3x3 board
 func (board *Board) Reset() {
-	for i := 0; i < int(NUM_SQUARES); i++ {
+	for i := 0; i < int(NumSquares); i++ {
 		board.state[i] = byte(' ')
 	}
 }
