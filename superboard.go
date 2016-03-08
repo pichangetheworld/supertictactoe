@@ -72,7 +72,6 @@ func (sb *Superboard) Print() {
 			fmt.Println(buffer.String())
 		}
 	}
-	fmt.Println()
 }
 
 // Play
@@ -89,5 +88,14 @@ func (sb *Superboard) Play(b position, pos position, player byte) bool {
 // Determines if the game has been won
 // Returns the character (e.g. 'O') if the player has won, or nil otherwise
 func (sb *Superboard) Evaluate() byte {
+	for _, conn := range Connections {
+		//fmt.Println(conn)
+		if p := sb.board[conn[0]].Evaluate(); p != ' ' &&
+			sb.board[conn[1]].Evaluate() == p &&
+			sb.board[conn[2]].Evaluate() == p {
+			return p
+		}
+	}
+
 	return ' '
 }

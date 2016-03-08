@@ -18,6 +18,24 @@ const (
 	NumSquares // = 9
 )
 
+// A list of winning combinations
+// iterating through the list will determine whether teh board has been won
+var Connections = [][]position{
+	// horizontal
+	{NW, N, NE},
+	{W, C, E},
+	{SW, S, SE},
+
+	// vertical
+	{NW, W, SW},
+	{N, C, S},
+	{NE, E, SE},
+
+	// diagonal
+	{NW, C, SE},
+	{NE, C, SW},
+}
+
 // A map from strings to the corresponding position
 var Position = map[string]position{
 	"NW": NW,

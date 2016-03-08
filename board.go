@@ -42,7 +42,7 @@ func (board *Board) PrintBoard() {
 
 // point to *Board (not Board) so we actually change its underlying value
 func (board *Board) Play(pos position, player byte) bool {
-	// TODO: check if the position is already taken
+	// check if the position is already taken
 	if board.state[pos] != ' ' {
 		fmt.Println("Position", pos, "was already taken")
 		return false
@@ -55,23 +55,7 @@ func (board *Board) Play(pos position, player byte) bool {
 // Determines if this specific board has been won
 // Returns the character (e.g. 'O') if the player has won, or nil otherwise
 func (board *Board) Evaluate() byte {
-	connections := [][]position{
-		// horizontal
-		{NW, N, NE},
-		{W, C, E},
-		{SW, S, SE},
-
-		// vertical
-		{NW, W, SW},
-		{N, C, S},
-		{NE, E, SE},
-
-		// diagonal
-		{NW, C, SE},
-		{NE, C, SW},
-	}
-
-	for _, conn := range connections {
+	for _, conn := range Connections {
 		//fmt.Println(conn)
 		if p := board.state[conn[0]]; p != ' ' &&
 			board.state[conn[1]] == p &&
