@@ -81,8 +81,8 @@ func (sb *Superboard) Print() {
 // e.g. sb.Play(E, N, "X")
 //      sb.Play(N, N, "O")
 //      sb.Play(N, N, "X") -> false
-func (sb *Superboard) Play(pos position, player byte) bool {
-	return true
+func (sb *Superboard) Play(b position, pos position, player byte) bool {
+	return sb.board[b].Play(pos, player)
 }
 
 // Evaluate

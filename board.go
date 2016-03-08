@@ -41,13 +41,13 @@ func (board *Board) PrintBoard() {
 //      board.Play("SW", "X") -> false
 
 // point to *Board (not Board) so we actually change its underlying value
-func (board *Board) Play(pos string, player byte) bool {
+func (board *Board) Play(pos position, player byte) bool {
 	// TODO: check if the position is already taken
-	if board.state[Position[pos]] != ' ' {
+	if board.state[pos] != ' ' {
 		fmt.Println("Position", pos, "was already taken")
 		return false
 	}
-	board.state[Position[pos]] = player
+	board.state[pos] = player
 	return true
 }
 

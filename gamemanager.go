@@ -32,9 +32,9 @@ func Show() {
 }
 
 // Play
-// Plays a move at the given position
+// Plays a move on board [b] at the given position [pos]
 // Returns true if the game is over, false otherwise
-func Play(pos position) bool {
+func Play(b position, pos position) bool {
 	var player byte
 	if curplayer == X {
 		player = 'X'
@@ -42,7 +42,7 @@ func Play(pos position) bool {
 		player = 'O'
 	}
 
-	if board.Play(pos, player) {
+	if board.Play(b, pos, player) {
 		Show()
 		if winner := board.Evaluate(); winner != ' ' {
 			fmt.Println("Player", string(winner), "wins!")
