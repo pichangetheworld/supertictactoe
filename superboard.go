@@ -36,7 +36,7 @@ func (sb *Superboard) Print() {
 			fmt.Println(boardSeparator)
 		}
 
-		board1, board2, board3 := sb.board[i], sb.board[i+1], sb.board[i+2]
+		board1, board2, board3 := sb.board[3*i], sb.board[3*i+1], sb.board[3*i+2]
 
 		for j := 0; j < len(rows); j++ {
 			if j != 0 {
