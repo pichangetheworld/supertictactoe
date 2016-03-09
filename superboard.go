@@ -25,7 +25,9 @@ const boardSeparator = "===+===+===‖===+===+===‖===+===+==="
 
 var rows = [][]position{
 	{NW, N, NE},
+	{},
 	{W, C, E},
+	{},
 	{SW, S, SE},
 }
 
@@ -38,36 +40,16 @@ func (sb *Superboard) Print() {
 
 		board1, board2, board3 := sb.board[3*i], sb.board[3*i+1], sb.board[3*i+2]
 
+		// iterate between each row of rows[] (see above)
 		for j := 0; j < len(rows); j++ {
-			if j != 0 {
-				fmt.Println(lineSeparator)
-			}
-
 			var buffer bytes.Buffer
 
-			// left, middle, right
-			l, m, r := rows[j][0], rows[j][1], rows[j][2]
-
-			buffer.WriteString(" ")
-			buffer.WriteString(string(board1.state[l]))
-			buffer.WriteString(" | ")
-			buffer.WriteString(string(board1.state[m]))
-			buffer.WriteString(" | ")
-			buffer.WriteString(string(board1.state[r]))
-			buffer.WriteString(" ‖ ")
-
-			buffer.WriteString(string(board2.state[l]))
-			buffer.WriteString(" | ")
-			buffer.WriteString(string(board2.state[m]))
-			buffer.WriteString(" | ")
-			buffer.WriteString(string(board2.state[r]))
-			buffer.WriteString(" ‖ ")
-
-			buffer.WriteString(string(board3.state[l]))
-			buffer.WriteString(" | ")
-			buffer.WriteString(string(board3.state[m]))
-			buffer.WriteString(" | ")
-			buffer.WriteString(string(board3.state[r]))
+			// Print each individual board
+			board1.PrintRow(j, &buffer)
+			buffer.WriteString("‖")
+			board2.PrintRow(j, &buffer)
+			buffer.WriteString("‖")
+			board3.PrintRow(j, &buffer)
 
 			fmt.Println(buffer.String())
 		}

@@ -2,6 +2,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 )
 
@@ -21,16 +22,79 @@ func (board *Board) Reset() {
 	}
 }
 
+// Incomplete board in ASCII
+//    | X | O
+// ---+---+---
+//    |   |
+// ---+---+---
+//    |   | X
+
+// Completed board in ASCII
+//            ‖   | X | O ‖
+//    /‾‾‾\   ‖---+---+---‖   \ V /
+//   |  O  |  ‖   | X | X ‖   > X <
+//    \___/   ‖---+---+---‖   / ^ \
+//            ‖   |   | O ‖
+// ===+===+===‖===+===+===‖===+===+===
+//            ‖           ‖   | O |
+//    \ V /   ‖   /‾‾‾\   ‖---+---+---
+//    > X <   ‖  |  O  |  ‖   | O |
+//    / ^ \   ‖   \___/   ‖---+---+---
+//            ‖           ‖ O | X |
+// ===+===+===‖===+===+===‖===+===+===
+//            ‖   |   | O ‖
+//    /‾‾‾\   ‖---+---+---‖   \ V /
+//   |  O  |  ‖ O |   |   ‖   > X <
+//    \___/   ‖---+---+---‖   / ^ \
+//            ‖ X |   |   ‖
+
 // Function to print out the board in ASCII
-// Use a method pointer (*Board) instead of (Board) so we can just pass the pointer around
-// This is faster than creating a copy every time
-func (board *Board) PrintBoard() {
-	fmt.Printf(" %s | %s | %s \n", string(board.state[NW]), string(board.state[N]), string(board.state[NE]))
-	fmt.Println("---+---+---")
-	fmt.Printf(" %s | %s | %s \n", string(board.state[W]), string(board.state[C]), string(board.state[E]))
-	fmt.Println("---+---+---")
-	fmt.Printf(" %s | %s | %s \n", string(board.state[SW]), string(board.state[S]), string(board.state[SE]))
-	fmt.Println()
+// PrintRow
+// Prints out a row of a mini-board if it is incomplete,
+// or a big symbol if the board has been won
+// Parameters:
+//    j      - integer from 1-5, indicates which row of the board to print
+//    buffer - byteBuffer to write the string result into
+func (board *Board) PrintRow(j int, buffer *bytes.Buffer) {
+
+	switch board.Evaluate() {
+	case ' ':
+		if j%2 == 0 {
+			// rows 0, 2, 4 are rows to print
+			l, m, r := rows[j][0], rows[j][1], rows[j][2]
+			buffer.WriteString(" ")
+			buffer.WriteString(string(board.state[l]))
+			buffer.WriteString(" | ")
+			buffer.WriteString(string(board.state[m]))
+			buffer.WriteString(" | ")
+			buffer.WriteString(string(board.state[r]))
+			buffer.WriteString(" ")
+		} else {
+			buffer.WriteString("---+---+---")
+		}
+	case 'X':
+		buffer.WriteString(bigX[j])
+	case 'O':
+		buffer.WriteString(bigO[j])
+	}
+}
+
+// Big X to draw over the board when X has won a mini-board
+var bigX = []string{
+	"           ",
+	"   \\ V /   ",
+	"   > X <   ",
+	"   / ^ \\   ",
+	"           ",
+}
+
+// Big O to draw over the board when O has won a mini-board
+var bigO = []string{
+	"           ",
+	"   /‾‾‾\\   ",
+	"  |  O  |  ",
+	"   \\___/   ",
+	"           ",
 }
 
 // Play
