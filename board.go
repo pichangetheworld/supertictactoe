@@ -106,6 +106,10 @@ var bigO = []string{
 
 // point to *Board (not Board) so we actually change its underlying value
 func (board *Board) Play(pos position, player byte) bool {
+	if w := board.Evaluate(); w != ' ' {
+		fmt.Println("Board is already won by ", w)
+		return false
+	}
 	// check if the position is already taken
 	if board.state[pos] != ' ' {
 		fmt.Println("Position", pos, "was already taken")
