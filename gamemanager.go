@@ -20,14 +20,23 @@ var curplayer int
 
 var board Superboard
 
+// keep track of the last move so you can undo it,
+// also so you can keep track of what is the next legal move
+var lastBoard, lastMove position
+
 func NewGame() {
 	board.Reset()
 
+	lastBoard = 0
+	lastMove = 0
 	curplayer = O
 }
 
 func Show() {
 	board.Print()
+	if lastMove != 0 {
+		fmt.Println("Last move was play", int(lastBoard)+1, int(lastMove)+1)
+	}
 	fmt.Println(curplayer, "to play")
 }
 
@@ -42,8 +51,11 @@ func Play(b position, pos position) bool {
 		player = 'O'
 	}
 
-	if board.Play(b, pos, player) {
+	if lastMove != 0 && b != lastMove {
+		fmt.Println("Illegal move: You must play on board", int(lastMove)+1)
+	} else if board.Play(b, pos, player) {
 		Show()
+		lastBoard, lastMove = b, pos
 		if winner := board.Evaluate(); winner != ' ' {
 			fmt.Println("Player", string(winner), "wins!")
 			return true
