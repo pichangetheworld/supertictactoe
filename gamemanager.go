@@ -51,7 +51,10 @@ func Play(b position, pos position) bool {
 		player = 'O'
 	}
 
-	if lastMove != 0 && b != lastMove {
+	// If last move is not nil (i.e. first move of the game)
+	// and the miniboard corresponding to the lastMove is not finished,
+	// you must play on that board
+	if lastMove != 0 && board.board[lastMove].Evaluate() == ' ' && b != lastMove {
 		fmt.Println("Illegal move: You must play on board", int(lastMove)+1)
 	} else if board.Play(b, pos, player) {
 		Show()
